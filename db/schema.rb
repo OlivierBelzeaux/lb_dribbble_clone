@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_15_085540) do
+ActiveRecord::Schema.define(version: 2022_06_15_091443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "shot_id"
+    t.string "name"
+    t.text "response"
+    t.index ["shot_id"], name: "index_comments_on_shot_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "impressions", force: :cascade do |t|
     t.string "impressionable_type"
@@ -41,6 +52,16 @@ ActiveRecord::Schema.define(version: 2022_06_15_085540) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
+  create_table "shots", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.text "description"
+    t.string "user_shot"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_shots_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_06_15_085540) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -69,4 +91,7 @@ ActiveRecord::Schema.define(version: 2022_06_15_085540) do
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
+  add_foreign_key "comments", "shots"
+  add_foreign_key "comments", "users"
+  add_foreign_key "shots", "users"
 end
