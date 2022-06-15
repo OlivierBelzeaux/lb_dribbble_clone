@@ -5,20 +5,8 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version : 3.0.3
 
-* System dependencies
+* Rails version : 6.1.6
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* [Dribbble clone](https://pacific-beach-71003.herokuapp.com/)
